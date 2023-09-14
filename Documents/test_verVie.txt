@@ -1,0 +1,3 @@
+Chào mọi người,
+Đây là một trang web mô phỏng cho đề tài Text-to-speech trong AI của nhóm 2 bọn mình.
+Chúc mọi người một ngày tốt lành.

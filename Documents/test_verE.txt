@@ -1,0 +1,3 @@
+Hello everyone,
+This is a website simulation for the Text-to-speech topic in AI by our group 2.
+Wishing you all a great day.
