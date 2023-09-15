@@ -27,7 +27,6 @@
 .func-import{
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
 /*function-content*/
@@ -87,7 +86,7 @@ button:hover{
     background: #8dc26f;
 }
 
-button img {
+button img, button i {
     width: 16px;
     margin-right: 10px;
 }

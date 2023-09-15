@@ -1,9 +1,12 @@
 let speech = new SpeechSynthesisUtterance();
-let textContent= document.getElementById("t-content");
+let textContent = document.getElementById("t-content");
 //Function
 let exptBtn = document.getElementById("expt-btn");
 let clrAll = document.getElementById("clearAll-btn");
 let imptBtn = document.getElementById("import-btn");
+let savBtn = document.getElementById("save-btn");
+let resBtn = document.getElementById("restore-btn");
+
 let fileInput = document.getElementById("fileInput");
 
 let voices = [];
@@ -24,7 +27,7 @@ window.speechSynthesis.onvoiceschanged = () => {
 };
 speech.onstart = function (event) {
   console.log("Bắt đầu phát âm...");
-  console.log("Speechtext ", speech.text)
+  console.log("Speechtext ", speech.text);
 };
 
 speech.onend = function (event) {
@@ -47,9 +50,15 @@ document.getElementById("play-btn").addEventListener("click", () => {
 /*Function Features*/
 /*Export*/
 exptBtn.addEventListener("click", () => {
-  let textContent = textContent.value;
+  let textContentValue = textContent.value;
   // Tạo một đối tượng Blob từ nội dung văn bản
-  const blob = new Blob([textContent], { type: "text/plain" });
+  let blob;
+  if (textContentValue.length > 0) {
+    blob = new Blob([textContentValue], { type: "text/plain" });
+  } else {
+    alert("There is no content to export! Please check it again.");
+    return;
+  }
 
   // Tạo một đối tượng URL từ Blob
   const url = window.URL.createObjectURL(blob);
@@ -74,19 +83,29 @@ clrAll.addEventListener("click", () => {
 });
 
 /*Improt file*/
-imptBtn.addEventListener("click", ()=>{
-    const selectedFile = fileInput.files[0];
+imptBtn.addEventListener("click", () => {
+  const selectedFile = fileInput.files[0];
 
-    if (selectedFile) {
-        const reader = new FileReader();
+  if (selectedFile) {
+    const reader = new FileReader();
 
-        reader.onload = function(event) {
-            const fileContent = event.target.result;
-            textContent.value = fileContent;
-        };
+    reader.onload = function (event) {
+      const fileContent = event.target.result;
+      textContent.value = fileContent;
+    };
 
-        reader.readAsText(selectedFile);
-    } else {
-        alert('Vui lòng chọn một file txt để import.');
-    }
-})
+    reader.readAsText(selectedFile);
+  } else {
+    alert("Please choose a txt file to import.");
+  }
+});
+/*Save function*/
+savBtn.addEventListener("click", () => {
+  localStorage.setItem("textareaSContent", textContent.value);
+  alert("Saved succesfully");
+});
+/*Restore function*/
+resBtn.addEventListener("click", () => {
+  const contentRestore = localStorage.getItem("textareaSContent");
+  textContent.value = contentRestore;
+});
