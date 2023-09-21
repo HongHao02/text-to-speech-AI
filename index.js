@@ -1,16 +1,12 @@
 let speech = new SpeechSynthesisUtterance();
 let textContent = document.getElementById("t-content");
-let speaking = false;
 
 // Functoin to stop speaking
 function stopSpeaking() {
-  if (speaking) {
-    window.speechSynthesis.cancel();
-    speaking = false;
-  }
+  window.speechSynthesis.cancel();
 }
 // Bắt sự kiện beforeunload để dừng việc nói trước khi thoát khỏi trang
-window.addEventListener('beforeunload', function (event) {
+window.addEventListener("beforeunload", function (event) {
   stopSpeaking();
   // Không cần gọi event.preventDefault() vì trình duyệt sẽ hiển thị thông báo thoát mặc định
 });
@@ -64,16 +60,14 @@ speech.onerror = function (event) {
   console.error("Lỗi khi phát âm:", event.error);
 };
 voiceSelect.addEventListener("change", () => {
+  stopSpeaking();
   speech.voice = voices[voiceSelect.value];
 });
 
 document.getElementById("play-btn").addEventListener("click", () => {
-  if (!speaking) {
-    console.log("value: ", document.getElementById("t-content").value);
-    speech.text = textContent.value;
-    window.speechSynthesis.speak(speech);
-    speaking = true;
-  }
+  console.log("value: ", document.getElementById("t-content").value);
+  speech.text = textContent.value;
+  window.speechSynthesis.speak(speech);
 });
 
 /*Function Features*/
