@@ -23,18 +23,33 @@
     margin-bottom: 50px;
 }
 
+
 /*function-import*/
 .func-import{
     display: flex;
     align-items: center;
 }
 
+/*content-wrapper*/
+.wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.wrapper-content{
+    display: flex;
+    flex-direction: column;
+    flex: 8;
+}
+
 /*function-content*/
 .function-contain{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 14px;
+}
+@media (min-width: 786px) {
+    
 }
 .container h1 span {
     color: #ff2963;
@@ -71,15 +86,13 @@ button {
     background: #ff2963;
     color: #fff;
     font-size: 16px;
-    padding: 10px 30px;
-    margin-left: 5px;
+    padding: 5px 15px;
     border-radius: 35px;
     border: 0;
     outline: 0;
     cursor: pointer;
     display: flex;
     align-items: center;
-
 }
 
 button:hover{

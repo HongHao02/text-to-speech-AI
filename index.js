@@ -1,5 +1,20 @@
 let speech = new SpeechSynthesisUtterance();
 let textContent = document.getElementById("t-content");
+let speaking = false;
+
+// Functoin to stop speaking
+function stopSpeaking() {
+  if (speaking) {
+    window.speechSynthesis.cancel();
+    speaking = false;
+  }
+}
+// Bắt sự kiện beforeunload để dừng việc nói trước khi thoát khỏi trang
+window.addEventListener('beforeunload', function (event) {
+  stopSpeaking();
+  // Không cần gọi event.preventDefault() vì trình duyệt sẽ hiển thị thông báo thoát mặc định
+});
+
 //Function
 let exptBtn = document.getElementById("expt-btn");
 let clrAll = document.getElementById("clearAll-btn");
@@ -13,17 +28,28 @@ let voices = [];
 let voiceSelect = document.getElementById("s-content");
 window.speechSynthesis.onvoiceschanged = () => {
   voices = window.speechSynthesis.getVoices();
+  console.log(voices);
   if (voices.length === 0) {
     console.log("Không có giọng nói nào được tìm thấy.");
   } else {
     console.log("Có giọng nói sẵn có.");
   }
-  speech.voice = voices[0];
+  speech.voice = voices[voices.length - 5];
   console.log(speech);
-
   voices.forEach(
     (voice, i) => (voiceSelect.options[i] = new Option(voice.name, i))
   );
+  console.log("voiceSelect ", voiceSelect.value);
+  if (
+    speech.voice.name !==
+    "Microsoft NamMinh Online (Natural) - Vietnamese (Vietnam)"
+  ) {
+    speech.voice = voices[0];
+  } else {
+    voiceSelect.value = voices.length - 5;
+  }
+  console.log(speech);
+  console.log("length - 5 ", voices[voices.length - 5].name, voiceSelect.value);
 };
 speech.onstart = function (event) {
   console.log("Bắt đầu phát âm...");
@@ -42,9 +68,12 @@ voiceSelect.addEventListener("change", () => {
 });
 
 document.getElementById("play-btn").addEventListener("click", () => {
-  console.log("value: ", document.getElementById("t-content").value);
-  speech.text = textContent.value;
-  window.speechSynthesis.speak(speech);
+  if (!speaking) {
+    console.log("value: ", document.getElementById("t-content").value);
+    speech.text = textContent.value;
+    window.speechSynthesis.speak(speech);
+    speaking = true;
+  }
 });
 
 /*Function Features*/

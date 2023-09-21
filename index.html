@@ -21,25 +21,30 @@
         <input type="file" id="fileInput" accept=".txt" />
         <button id="import-btn"><i class="fa-solid fa-file-import fa-beat"></i>Imprort</button>
       </div>
-      <div class="function-contain">
-        <button id="clearAll-btn"><i class="fa-regular fa-trash-can"></i>ClearAll</button>
-        <button id="save-btn"><i class="fa-regular fa-bookmark"></i>Save</button>
-        <button id="restore-btn"><i class="fa-solid fa-window-restore"></i>Restore</button>
-        <button id="expt-btn"><i class="fa-solid fa-cloud-arrow-down"></i>Export</button>
-      </div>
-      <textarea
-        name="text-content"
-        id="t-content"
-        cols="30"
-        rows="10"
-        placeholder="Write anything here..."
-      ></textarea>
-      <div class="row">
-        <select name="select-content" id="s-content"></select>
-        <button id="play-btn">
-          <img src="images/play.png" alt="play-btn" /> Listen
-        </button>
-      </div>
+      <div class="wrapper">
+        <div class="function-contain">
+          <button id="clearAll-btn" class="btn-item"><i class="fa-regular fa-trash-can"></i>ClearAll</button>
+          <button id="save-btn" class="btn-item"><i class="fa-regular fa-bookmark"></i>Save</button>
+          <button id="restore-btn" class="btn-item"><i class="fa-solid fa-window-restore"></i>Restore</button>
+          <button id="expt-btn" class="btn-item"><i class="fa-solid fa-cloud-arrow-down"></i>Export</button>
+        </div>
+        <div class="wrapper-content">
+          <textarea
+            name="text-content"
+            id="t-content"
+            cols="30"
+            rows="10"
+            placeholder="Write anything here..."
+          ></textarea>
+          <div class="row">
+            <select name="select-content" id="s-content"></select>
+            <button id="play-btn">
+              <img src="images/play.png" alt="play-btn" /> Listen
+            </button>
+          </div>
+        </div>
+      </div
+     >
       <div class="footer">
         Created by Group 2 Introduction to Artificial Intelligence 2023.
       </div>
