@@ -1,6 +1,8 @@
 let speech = new SpeechSynthesisUtterance();
 let textContent = document.getElementById("t-content");
 
+let isSpeaking = false; //variable for speaking
+let paused = false; //variable for pause/resume
 // Functoin to stop speaking
 function stopSpeaking() {
   window.speechSynthesis.cancel();
@@ -17,6 +19,9 @@ let clrAll = document.getElementById("clearAll-btn");
 let imptBtn = document.getElementById("import-btn");
 let savBtn = document.getElementById("save-btn");
 let resBtn = document.getElementById("restore-btn");
+let pasueBtn = document.getElementById("pause-btn");
+pasueBtn.style.display = "none";
+pasueBtn.classList.remove("fa-spin");
 
 let fileInput = document.getElementById("fileInput");
 
@@ -47,27 +52,63 @@ window.speechSynthesis.onvoiceschanged = () => {
   console.log(speech);
   console.log("length - 5 ", voices[voices.length - 5].name, voiceSelect.value);
 };
-speech.onstart = function (event) {
-  console.log("Bắt đầu phát âm...");
-  console.log("Speechtext ", speech.text);
-};
 
-speech.onend = function (event) {
-  console.log("Phát âm hoàn thành.");
-};
+// speech.onend = function (event) {
+//   console.log("Phát âm hoàn thành.");
+// };
 
-speech.onerror = function (event) {
-  console.error("Lỗi khi phát âm:", event.error);
-};
+// speech.onerror = function (event) {
+//   console.error("Lỗi khi phát âm:", event);
+// };
 voiceSelect.addEventListener("change", () => {
   stopSpeaking();
   speech.voice = voices[voiceSelect.value];
 });
 
-document.getElementById("play-btn").addEventListener("click", () => {
-  console.log("value: ", document.getElementById("t-content").value);
-  speech.text = textContent.value;
-  window.speechSynthesis.speak(speech);
+const ttsSpeak = () => {
+  return new Promise((resolve, reject) => {
+    speech.onstart = (event) => {
+      console.log("Bắt đầu phát âm...");
+      console.log("Speechtext ", speech.text);
+    };
+    speech.onend = () => {
+      isSpeaking = false; //Đánh dấu phát âm hoàn tất
+      console.log("Phát âm hoàn tất!");
+      resolve();
+    };
+
+    speech.onerror = (error) => {
+      isSpeaking = false; //Đánh dấu phát âm hoàn tất với lỗi
+      reject(error);
+    };
+    window.speechSynthesis.speak(speech);
+    isSpeaking = true; //Đánh dấu là đang trong quá trình phát âm
+  });
+};
+
+document.getElementById("play-btn").addEventListener("click", async () => {
+  if (!isSpeaking) {
+    try {
+      pasueBtn.style.display = "block";
+      pasueBtn.classList.add("fa-spin");
+      console.log("value: ", document.getElementById("t-content").value);
+      speech.text = textContent.value;
+      await ttsSpeak();
+      console.log("PROMISE FINISHED");
+      pasueBtn.style.display = "none";
+      pasueBtn.classList.remove("fa-spin");
+    } catch (error) {
+      pasueBtn.style.display = "none";
+      pasueBtn.classList.remove("fa-spin");
+      console.error("Lỗi trong quá trình phát âm! ", error);
+    }
+  } else {
+    window.speechSynthesis.cancel(); //Hủy việc phát âm
+    isSpeaking = false;
+    // Thêm hiệu ứng động cho nút play khi dừng phát âm
+    pasueBtn.style.display = "none";
+    pasueBtn.classList.remove("fa-spin");
+  }
 });
 
 /*Function Features*/

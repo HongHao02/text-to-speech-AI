@@ -11,6 +11,7 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="shortcut icon" href="images/favicon.jpg" type="image/x-icon">
 
     <title>Text-to-specch Converter B2012202</title>
   </head>
@@ -22,24 +23,28 @@
         <button id="import-btn"><i class="fa-solid fa-file-import fa-beat"></i>Imprort</button>
       </div>
       <div class="wrapper">
-        <div class="function-contain">
-          <button id="clearAll-btn" class="btn-item"><i class="fa-regular fa-trash-can"></i>ClearAll</button>
-          <button id="save-btn" class="btn-item"><i class="fa-regular fa-bookmark"></i>Save</button>
-          <button id="restore-btn" class="btn-item"><i class="fa-solid fa-window-restore"></i>Restore</button>
-          <button id="expt-btn" class="btn-item"><i class="fa-solid fa-cloud-arrow-down"></i>Export</button>
-        </div>
         <div class="wrapper-content">
+          <div class="function-contain">
+            <button id="clearAll-btn" class="btn-item"><i class="fa-regular fa-trash-can"></i>ClearAll</button>
+            <button id="save-btn" class="btn-item"><i class="fa-regular fa-bookmark"></i>Save</button>
+            <button id="restore-btn" class="btn-item"><i class="fa-solid fa-window-restore"></i>Restore</button>
+            <button id="expt-btn" class="btn-item"><i class="fa-solid fa-cloud-arrow-down"></i>Export</button>
+          </div>
           <textarea
-            name="text-content"
+            class="text-content"
             id="t-content"
             cols="30"
             rows="10"
             placeholder="Write anything here..."
           ></textarea>
-          <div class="row">
-            <select name="select-content" id="s-content"></select>
-            <button id="play-btn">
-              <img src="images/play.png" alt="play-btn" /> Listen
+          
+        </div>
+        <div class="row">
+          <select name="select-content" id="s-content"></select>
+          <div class="play-container">
+            <button id="play-btn" class="btn-play">
+              <!-- <img src="images/play.png" alt="play-btn" /> Listen -->
+              <i id="pause-btn" class="fa-solid fa-circle-play fa-spin fa-lg"></i>Listen
             </button>
           </div>
         </div>
