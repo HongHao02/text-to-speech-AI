@@ -14,6 +14,7 @@ window.addEventListener("beforeunload", function (event) {
 });
 
 //Function
+const playBtn = document.getElementById("play-btn");
 let exptBtn = document.getElementById("expt-btn");
 let clrAll = document.getElementById("clearAll-btn");
 let imptBtn = document.getElementById("import-btn");
@@ -67,6 +68,7 @@ voiceSelect.addEventListener("change", () => {
 
 const ttsSpeak = () => {
   return new Promise((resolve, reject) => {
+    console.log("isSpeaking-frist ", isSpeaking);
     speech.onstart = (event) => {
       console.log("Bắt đầu phát âm...");
       console.log("Speechtext ", speech.text);
@@ -83,23 +85,30 @@ const ttsSpeak = () => {
     };
     window.speechSynthesis.speak(speech);
     isSpeaking = true; //Đánh dấu là đang trong quá trình phát âm
+    console.log("isSpeaking ", isSpeaking);
+
+    console.log("isSpeaking-after ", isSpeaking);
   });
 };
 
-document.getElementById("play-btn").addEventListener("click", async () => {
+playBtn.addEventListener("click", async () => {
   if (!isSpeaking) {
     try {
+      console.log("click play success");
       pasueBtn.style.display = "block";
       pasueBtn.classList.add("fa-spin");
+      playBtn.classList.add("btn-active");
       console.log("value: ", document.getElementById("t-content").value);
       speech.text = textContent.value;
       await ttsSpeak();
       console.log("PROMISE FINISHED");
       pasueBtn.style.display = "none";
       pasueBtn.classList.remove("fa-spin");
+      playBtn.classList.remove("btn-active");
     } catch (error) {
       pasueBtn.style.display = "none";
       pasueBtn.classList.remove("fa-spin");
+      playBtn.classList.remove("btn-active");
       console.error("Lỗi trong quá trình phát âm! ", error);
     }
   } else {
@@ -108,6 +117,7 @@ document.getElementById("play-btn").addEventListener("click", async () => {
     // Thêm hiệu ứng động cho nút play khi dừng phát âm
     pasueBtn.style.display = "none";
     pasueBtn.classList.remove("fa-spin");
+    playBtn.classList.remove("btn-active");
   }
 });
 

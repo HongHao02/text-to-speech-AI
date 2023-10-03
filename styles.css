@@ -100,6 +100,7 @@
     #s-content{
         width: 100%;
         font-size: 12px;
+        padding: 0 66px;
     }
     .play-container{
         display: flex;
@@ -154,6 +155,9 @@ button {
 button:hover {
     background: #8dc26f;
 }
+.btn-active{
+    background: #8dc26f;
+}
 
 button img,
 button i {
@@ -173,7 +177,7 @@ button i {
     color: #fff;
     background: #403d84;
     height: 50px;
-    padding: 0 20px;
+    padding: 0 120px;
     outline: 0;
     border: 0;
     border-radius: 35px;
